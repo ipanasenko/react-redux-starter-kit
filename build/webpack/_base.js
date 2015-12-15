@@ -80,12 +80,12 @@ const webpackConfig = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.styl/,
         loaders: [
           'style-loader',
           CSS_LOADER,
           'postcss-loader',
-          'sass-loader'
+          'stylus-loader'
         ]
       },
       {
