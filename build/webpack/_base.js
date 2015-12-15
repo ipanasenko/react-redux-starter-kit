@@ -8,12 +8,14 @@ const paths = config.utils_paths;
 const debug = _debug('app:webpack:_base');
 debug('Create configuration.');
 
-const CSS_LOADER = !config.compiler_css_modules ? 'css-loader?sourceMap' : [
-  'css-loader?modules',
-  'sourceMap',
-  'importLoaders=1',
-  'localIdentName=[name]__[local]___[hash:base64:5]'
-].join('&');
+const CSS_LOADER = !config.compiler_css_modules
+  ? 'css?sourceMap'
+  : [
+    'css?modules',
+    'sourceMap',
+    'importLoaders=1',
+    'localIdentName=[name]__[local]___[hash:base64:5]'
+  ].join('&');
 
 const webpackConfig = {
   name: 'client',
@@ -82,18 +84,18 @@ const webpackConfig = {
       {
         test: /\.styl/,
         loaders: [
-          'style-loader',
+          'style',
           CSS_LOADER,
-          'postcss-loader',
-          'stylus-loader'
+          'postcss',
+          'stylus'
         ]
       },
       {
         test: /\.css$/,
         loaders: [
-          'style-loader',
+          'style',
           CSS_LOADER,
-          'postcss-loader'
+          'postcss'
         ]
       },
       {
@@ -133,7 +135,7 @@ const webpackConfig = {
     })
   ],
   eslint: {
-    configFile: `${paths.base()}/.eslintrc`
+    configFile: paths.base('.eslintrc')
   }
 };
 
