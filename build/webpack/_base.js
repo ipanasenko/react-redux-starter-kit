@@ -53,7 +53,7 @@ const webpackConfig = {
     preLoaders: [
       {
         test: /\.js$/,
-        loader: 'eslint-loader',
+        loader: 'eslint',
         exclude: /node_modules/
       }
     ],
@@ -98,24 +98,14 @@ const webpackConfig = {
           'postcss'
         ]
       },
-      {
-        test: /\.woff(\?.*)?$/,
-        loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.woff2(\?.*)?$/,
-        loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
-      },
-      {
-        test: /\.ttf(\?.*)?$/,
-        loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
-      },
-      { test: /\.eot(\?.*)?$/, loader: 'file-loader?prefix=fonts/&name=[path][name].[ext]' },
-      {
-        test: /\.svg(\?.*)?$/,
-        loader: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
-      },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
+      /* eslint-disable */
+      { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+      { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+      { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+      { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+      { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
+      /* eslint-enable */
     ]
   },
   sassLoader: {
