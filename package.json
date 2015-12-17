@@ -2,7 +2,10 @@
   "name": "react-redux-starter-kit",
   "version": "0.18.0",
   "description": "Get started with React, Redux, and React-Router!",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rm -rf dist",
     "compile": "npm run clean && node -r dotenv/config --harmony bin/compile",
