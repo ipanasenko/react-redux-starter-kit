@@ -23,7 +23,11 @@ const CSS_LOADERS = [
 const webpackConfig = {
   name: 'client',
   target: 'node',
-  entry: paths.base(config.dir_client) + '/app.js',
+  entry: {
+    app: [
+      paths.base(config.dir_client) + '/app.js'
+    ]
+  },
   output: {
     filename: config.main,
     path: paths.base(config.dir_dist),
