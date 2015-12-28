@@ -1,7 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import DevTools from 'containers/DevToolsWindow';
+import DevTools from '../../containers/DevToolsWindow';
 
 export default function createDevToolsWindow (store) {
   const win = window.open(

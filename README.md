@@ -63,9 +63,10 @@ Features
   * PhantomJS
   * Code coverage reports
 * [Babel](https://github.com/babel/babel) (`^6.3.0`)
-  * react-transform-hmr for hot reloading
-  * `react-transform-catch-errors` with `redbox-react` for more visible error reporting
-  * Uses babel runtime rather than inline transformations
+  * [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined
+  * [babel-preset-react-hmre](https://github.com/danmartinez101/babel-preset-react-hmre) for:
+    * react-transform-hmr (HMR for React components)
+    * redbox-react (visible error reporting for React components)
 * [ESLint](http://eslint.org)
   * Uses [Standard Style](https://github.com/feross/standard) by default, but you're welcome to change this!
   * Includes separate test-specific `.eslintrc` to work with Mocha and Chai
@@ -133,9 +134,8 @@ The folder structure provided is only meant to serve as a guide, it is by no mea
 │   └── webpack              # Environment-specific configuration files for webpack
 ├── config                   # Project configuration settings
 ├── server                   # Express application (uses webpack middleware)
-│   └── app.js               # Server application entry point
+│   └── main.js              # Server application entry point
 ├── src                      # Application source code
-│   ├── assets               # Static assets (not imported anywhere in source code)
 │   ├── components           # Generic React Components (generally Dumb components)
 │   ├── containers           # Components that provide context (e.g. Redux Provider)
 │   ├── layouts              # Components that dictate major page structure
@@ -143,9 +143,10 @@ The folder structure provided is only meant to serve as a guide, it is by no mea
 │   │   ├── modules          # Collections of reducers/constants/actions
 │   │   └── utils            # Redux-specific helpers
 │   ├── routes               # Application route definitions
+│   ├── static               # Static assets (not imported anywhere in source code)
 │   ├── styles               # Application-wide styles (generally settings)
 │   ├── views                # Components that live at a route
-│   └── app.js               # Application bootstrap and rendering
+│   └── main.js              # Application bootstrap and rendering
 └── tests                    # Unit tests
 ```
 
@@ -199,6 +200,17 @@ These are global variables available to you anywhere in your source code. If you
 * `process.env.NODE_ENV` - the active `NODE_ENV` when the build started
 * `__DEV__` - True when `process.env.NODE_ENV` is `development`
 * `__PROD__` - True when `process.env.NODE_ENV` is `production`
+
+Additionally, the following variables are globally available by automatic imports (see section "Globally available imports" further below):
+
+* `React` (imported from `'react'`)
+* `ReactDOM` (imported from `'react-dom'`)
+
+### Provided Plugins
+
+#### Globally availabe imports via ProvidePlugin
+
+Webpack is configured to use [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin), which lets you use commonly used imports without explicitly writing an import statement, reducing boilerplate. To add more automatic imports, add them to `compiler_globals` in `~/config/_base`. Additionally, add them to the globals object in your `.eslintrc` so you don't encounter misleading linter errors.
 
 Server
 ------
@@ -254,3 +266,12 @@ Troubleshooting
 This is most likely because the new window has been blocked by your popup blocker, so make sure it's disabled before trying again.
 
 Reference: [issue 110](https://github.com/davezuko/react-redux-starter-kit/issues/110)
+
+### High editor CPU usage after compilation
+
+While this is common to any sizable application, it's worth noting for those who may not know: if you happen to notice higher CPU usage in your editor after compiling the application, you may need to tell your editor not to process the dist folder. For example, in Sublime you can add:
+
+
+```
+	"folder_exclude_patterns": [".svn",	".git",	".hg", "CVS",	"node_modules",	"dist"]
+```
